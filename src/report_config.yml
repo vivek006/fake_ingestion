@@ -1,0 +1,22 @@
+reports:
+  - query_name: "percentage_germany_gmail"
+    query: |
+      SELECT 
+        (COUNT(CASE WHEN country = 'germany' AND email_domain = 'gmail.com' THEN 1 END) * 100.0) / 
+        COUNT(*) AS percentage_germany_gmail
+      FROM users;
+
+  - query_name: "top_countries_gmail"
+    query: |
+      SELECT country, COUNT(*) AS gmail_count
+      FROM users
+      WHERE email_domain = 'gmail.com'
+      GROUP BY country
+      ORDER BY gmail_count DESC
+      LIMIT 3;
+
+  - query_name: "people_over_60_gmail"
+    query: |
+      SELECT COUNT(*) 
+      FROM users 
+      WHERE email_domain = 'gmail.com' AND age_group = '[60-70]';
