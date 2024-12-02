@@ -4,6 +4,8 @@ def generalize_age(birthdate):
     """
     Generalizes the age into a 10-year age group based on birthdate.
     """
+    if birthdate is None:
+        return None
     year = int(birthdate.split('-')[0])
     age_group = (2023 - year) // 10 * 10
     return f"[{age_group}-{age_group + 10}]"
@@ -21,24 +23,26 @@ def anonymize_data(data):
     """
     anonymized = []
     for entry in data:
+        print("entry: ", entry)
         # Masking user-identifiable information
         name = "****"  # Mask the name
         phone_number = "****"  # Mask the phone number
         email_domain = entry["email"].split('@')[1]  # Keep only the email domain
+        location = entry.get("address", {})
         location = entry.get("address", {})
 
         # Mask the address-related information (but leave city and country unmasked)
         street = "****"
         street_name = "****"
         building_number = "****"
-        city = entry["address"].get("city", "****").lower()  # Unmasked city
-        country = entry["address"].get("country", "****").lower()  # Unmasked country
+        city = location.get("city", "****").lower()  # Unmasked city
+        country = location.get("country", "****").lower()  # Unmasked country
         zipcode = "****"  # Mask the zip code
         latitude = None  # Mask geographical coordinates
         longitude = None
 
         # Generalize the age
-        age_group = generalize_age(entry["birthday"])
+        age_group = generalize_age(entry.get("birthday",None))
 
         # Add anonymized data to the list
         anonymized.append({

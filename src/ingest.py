@@ -36,7 +36,7 @@ def main():
         logging.info("Reports generated successfully!")
 
     except Exception as e:
-        logging.error("Pipeline execution failed!", exc_info=True)
+        logging.error(f"Pipeline execution failed: {e}", exc_info=True)
 
 if __name__ == "__main__":
     main()
