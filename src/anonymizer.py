@@ -23,7 +23,6 @@ def anonymize_data(data):
     """
     anonymized = []
     for entry in data:
-        print("entry: ", entry)
         # Masking user-identifiable information
         name = "****"  # Mask the name
         phone_number = "****"  # Mask the phone number
